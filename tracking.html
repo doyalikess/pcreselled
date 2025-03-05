@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking - Reselled Rigs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Baloo 2', cursive;
+            background: #121212;
+            color: #fff;
+            text-align: center;
+            line-height: 1.6;
+        }
+		
+
+        header {
+            background: #1f1f1f;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            color: #ff4d00;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        nav a:hover {
+            color: #ff4d00;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        form {
+            background: #333;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            background: #222;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        input[type="submit"] {
+            padding: 1rem 2rem;
+            background: #ff4d00;
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        input[type="submit"]:hover {
+            background: #ff704d;
+        }
+
+        .error {
+            color: #ff4d00;
+            background-color: #551111;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 5px;
+        }
+
+        footer {
+            margin-top: 4rem;
+            background: #1f1f1f;
+            padding: 1.5rem;
+            text-align: center;
+            color: #ccc;
+        }
+
+        footer a {
+            color: #ff4d00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Reselled Rigs</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="store.html">Store</a>
+            <a href="tracking.html">Tracking</a>
+			<a href="faq.html" class="main-tab">FAQ</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Track Your Order</h2>
+        <p>Enter your tracking ID to view your order status:</p>
+
+        <form id="trackingForm" onsubmit="return validateTrackingId()">
+            <input type="text" id="trackingId" placeholder="Enter Tracking ID" />
+            <input type="submit" value="Track" />
+        </form>
+
+        <div id="errorMessage" class="error" style="display: none;">
+            <p>Invalid Tracking ID! Please enter a valid ID.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Contact us at: <a href="support@reselledrigs.store">support@reselledrigs.store</a></p>
+        <p>&copy; 2025 Reselled Rigs</p>
+    </footer>
+
+    <script>
+        function validateTrackingId() {
+            // Get the tracking ID value
+            const trackingId = document.getElementById('trackingId').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Check if the tracking ID is empty or does not match a simple pattern (adjust this as needed)
+            const trackingIdPattern = /^[A-Za-z0-9]{6,12}$/; // Example pattern for ID: 6-12 alphanumeric characters
+
+            if (!trackingIdPattern.test(trackingId)) {
+                // Show error message if the ID doesn't match the pattern
+                errorMessage.style.display = 'block';
+                return false; // Prevent form submission
+            }
+
+            // If tracking ID is valid (you can add more complex validation logic here)
+            errorMessage.style.display = 'none';
+            alert("Tracking ID is valid! (For now, we'll just show an alert.)");
+            return false; // Prevent form submission for now
+        }
+    </script>
+
+</body>
+</html>
