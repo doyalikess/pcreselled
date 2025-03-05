@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reselled Rigs - GPUs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Baloo 2', cursive;
+            background: #121212;
+            color: #fff;
+            margin: 0;
+        }
+
+        header {
+            background: #1f1f1f;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #fff;
+            border-bottom: 2px solid #ff4d00;
+        }
+
+        .cart-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-button:hover {
+            transform: scale(1.2);
+        }
+
+        .main-tabs {
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            gap: 1rem;
+        }
+
+        .main-tab {
+            padding: 0.8rem 2rem;
+            background: none;
+            border: 2px solid #ff4d00;
+            border-radius: 30px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .main-tab:hover, .main-tab.active {
+            background: #ff4d00;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .product-card {
+            background: #282828;
+            border-radius: 20px;
+            overflow: hidden;
+            padding: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            margin-top: 1rem;
+            text-align: left;
+        }
+
+        .product-title {
+            font-size: 1.5rem;
+            color: #ff4d00;
+        }
+
+        .product-description {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .product-price {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding-top: 50px;
+        }
+
+        .cart-content {
+            background-color: #282828;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            color: #fff;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cart-items {
+            margin-top: 1rem;
+            list-style-type: none;
+            padding-left: 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .cart-items li {
+            margin: 0.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            background: #1f1f1f;
+            border-radius: 5px;
+        }
+
+        .cart-button-close {
+            padding: 10px 20px;
+            background-color: #ff4d00;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .cart-button-close:hover {
+            background-color: #e34a00;
+        }
+
+        .checkout-button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .checkout-button:hover {
+            background-color: #218838;
+        }
+
+        .remove-button {
+            background-color: #e34a00;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .remove-button:hover {
+            background-color: #c13500;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .main-tabs {
+                flex-wrap: wrap;
+            }
+
+            .products {
+                padding: 1rem;
+            }
+
+            .cart-content {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Reselled Rigs 🔥
+        <button class="cart-button" onclick="toggleCart()">
+            <i class="fas fa-shopping-cart"></i> (<span id="cartCount">0</span>)
+        </button>
+    </header>
+
+    <div class="main-tabs">
+        <a href="index.html" class="main-tab">Home</a>
+        <a href="store.html" class="main-tab">PC's</a>
+        <a href="GPU.html" class="main-tab active">GPU's</a>
+        <a href="tracking.html" class="main-tab">tracking</a>
+		<a href="FAQ.html" class="main-tab">FAQ</a>
+    </div>
+
+    <div class="products">
+        <!-- Product 1 -->
+        <div class="product-card" onclick="addToCart('RTX 4060', 225)">
+            <img src="https://imgs.search.brave.com/YwwQvcbb7Bs0Y1dGL4hDe5qloUb5ad6sdkN3l4M2pHA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NjFBZlJwanRlTEwu/anBn" alt="RTX 4060">
+            <div class="product-info">
+                <h3 class="product-title">RTX 3060</h3>
+                <p class="product-description">12GB GDDR6 | High Performance for Gaming</p>
+                <div class="product-price">$225</div>
+            </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card" onclick="addToCart('RTX 4090', 780)">
+            <img src="https://imgs.search.brave.com/wKd3Qsko3fz85WXjbkAL8R5Uz7NKEQJ4l38We3r1hs4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kbGNk/bndlYmltZ3MuYXN1/cy5jb20vZ2Fpbi80/MUNEMThEQS00RTcy/LTRBMzEtOUM2MS0w/MUIyQjZEMTNBMUEv/dzEwMDAvaDczMg" alt="RTX 4090">
+            <div class="product-info">
+                <h3 class="product-title">RTX 4090</h3>
+                <p class="product-description">24GB GDDR6X | Ultimate Graphics Power</p>
+                <div class="product-price">$780</div>
+            </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card" onclick="addToCart('RX 6800 XT', 560)">
+            <img src="https://imgs.search.brave.com/sAjjM7DhF0uF266vUNKazI4BKjM87romaKTEsv7NciQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/ODFjM1BpUUxCVUwu/anBn" alt="RX 6800 XT">
+            <div class="product-info">
+                <h3 class="product-title">RX 6800 XT</h3>
+                <p class="product-description">16GB GDDR6 | Advanced Gaming and Streaming</p>
+                <div class="product-price">$560</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3>Your Cart</h3>
+                <button class="cart-button-close" onclick="closeCart()">Close</button>
+            </div>
+            <ul id="cartItems" class="cart-items"></ul>
+            <button class="checkout-button" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to initialize the cart from localStorage
+        function initializeCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            updateCartCount(cart.length);
+            updateCartItems();
+        }
+
+        // Function to update the cart count on the button
+        function updateCartCount(count) {
+            document.getElementById('cartCount').innerText = count;
+        }
+
+        // Function to update the cart items in the modal
+        function updateCartItems() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsList = document.getElementById('cartItems');
+            cartItemsList.innerHTML = '';
+
+            cart.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${item.productName} - $${item.productPrice}`;
+                
+                // Add Remove button to each item
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.className = 'remove-button';
+                removeButton.onclick = () => removeFromCart(index);
+                li.appendChild(removeButton);
+                
+                cartItemsList.appendChild(li);
+            });
+        }
+
+        // Function to add items to the cart
+        function addToCart(productName, productPrice) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Add the new product to the cart array
+            cart.push({ productName, productPrice });
+
+            // Save the cart back to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Update the cart count
+            updateCartCount(cart.length);
+            updateCartItems();
+            alert(`${productName} has been added to your cart!`);
+        }
+
+        // Function to remove items from the cart
+        function removeFromCart(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Remove the item at the specified index
+            cart.splice(index, 1);
+
+            // Save the updated cart back to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Update the cart count
+            updateCartCount(cart.length);
+            updateCartItems();
+        }
+
+        // Function to toggle the visibility of the cart modal
+        function toggleCart() {
+            const cartModal = document.getElementById('cartModal');
+            cartModal.style.display = (cartModal.style.display === 'block') ? 'none' : 'block';
+        }
+
+        // Function to close the cart modal
+        function closeCart() {
+            const cartModal = document.getElementById('cartModal');
+            cartModal.style.display = 'none';
+        }
+
+        // Function for checkout (pass the cart data to checkout.html)
+        function checkout() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            localStorage.setItem('cart', JSON.stringify(cart));  // Ensure cart is saved for checkout
+            window.location.href = "checkout.html";  // Redirect to checkout page
+        }
+
+        // Initialize cart on page load
+        window.onload = function() {
+            initializeCart();
+        };
+    </script>
+</body>
+</html>
