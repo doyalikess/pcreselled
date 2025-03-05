@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reselled Rigs - Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Baloo 2', cursive;
+            background: #121212;
+            color: #fff;
+            text-align: center;
+        }
+
+        header {
+            background: #1f1f1f;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+            position: relative;
+        }
+
+        .cart-button {
+            position: absolute;
+            right: 2rem;
+            top: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-button:hover {
+            transform: scale(1.2);
+        }
+
+        .main-tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .main-tab {
+            padding: 1rem 2rem;
+            background: none;
+            margin: 0 1rem;
+            cursor: pointer;
+            border: 2px solid #ff4d00;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .main-tab:hover, .main-tab.active {
+            background: #ff4d00;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .product-card {
+            background: #282828;
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card img {
+            width: 100%;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            margin-top: 1rem;
+        }
+
+        .product-title {
+            font-size: 1.8rem;
+            color: #ff4d00;
+        }
+
+        .product-description {
+            margin-top: 0.5rem;
+            color: #ccc;
+        }
+
+        .product-price {
+            margin-top: 1rem;
+            font-size: 1.3rem;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            z-index: 2;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding-top: 50px;
+        }
+
+        .cart-content {
+            background-color: #282828;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 60%;
+            border-radius: 10px;
+            color: #fff;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cart-items {
+            margin-top: 1rem;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .cart-items li {
+            margin: 0.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-button-close {
+            padding: 10px 20px;
+            background-color: #ff4d00;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .cart-button-close:hover {
+            background-color: #e34a00;
+        }
+
+        .checkout-button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .checkout-button:hover {
+            background-color: #218838;
+        }
+
+        .remove-button {
+            background-color: #e34a00;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .remove-button:hover {
+            background-color: #c13500;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Reselled Rigs 🔥
+        <button class="cart-button" onclick="toggleCart()">
+            <i class="fas fa-shopping-cart"></i> (<span id="cartCount">0</span>)
+        </button>
+    </header>
+
+    <div class="main-tabs">
+        <a href="index.html" class="main-tab">Home</a>
+        <a href="store.html" class="main-tab active">Store</a>
+    </div>
+
+    <div class="products">
+        <!-- Product 1 -->
+        <div class="product-card" onclick="addToCart('Angel Pro', 299)">
+            <img src="https://media.discordapp.net/attachments/1296183657417146430/1346860046860156948/IMG_2195.jpg?ex=67c9b8aa&is=67c8672a&hm=860c67d86b9a659ee4c84def3d2d1d7aa6b70f02a734fd57d98375a8c0967403&=&format=webp&width=369&height=657" alt="Angel Pro">
+            <div class="product-info">
+                <h3 class="product-title">Angel Pro</h3>
+                <p class="product-description">AMD RYZEN 7 7700 | RTX 4060 OC | 16GB DDR5 | 1TB NVMe SSD</p>
+                <div class="product-price">$299</div>
+            </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card" onclick="addToCart('Performance Pro', 599)">
+            <img src="https://media.discordapp.net/attachments/1341421737098743828/1346864203667079168/first-pc-build-white-blue-theme-v0-dj4587txnume1.png?ex=67c9bc89&is=67c86b09&hm=6e3f1f45cd0d16b20e73b8db474f03a4e931e3c51be6ab1abe1f8abca0a2e324&=&format=webp&quality=lossless&width=369&height=657" alt="Performance Pro">
+            <div class="product-info">
+                <h3 class="product-title">Performance Pro</h3>
+                <p class="product-description">AMD Ryzen 7 9800X3D | RTX 4090 | 32GB RAM | 2TB SSD</p>
+                <div class="product-price">$599</div>
+            </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card" onclick="addToCart('Budget Beast', 80)">
+            <img src="https://media.discordapp.net/attachments/1341421737098743828/1346864909761253478/nc3j1mypled71.png?ex=67c9bd32&is=67c86bb2&hm=6337faa8119021a19c782f4aa3f3f10bdd69c2ad89284e753f5ed991841c9cd3&=&format=webp&quality=lossless&width=493&height=657" alt="Budget Beast">
+            <div class="product-info">
+                <h3 class="product-title">Budget Beast</h3>
+                <p class="product-description">AMD Ryzen 5 5600x | RTX 3070 TI| 32GB RAM DDR5 | 1TB SSD</p>
+                <div class="product-price">$80</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3>Your Cart</h3>
+                <button class="cart-button-close" onclick="closeCart()">Close</button>
+            </div>
+            <ul id="cartItems" class="cart-items"></ul>
+            <button class="checkout-button" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to initialize the cart from localStorage
+        function initializeCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            updateCartCount(cart.length);
+            updateCartItems();
+        }
+
+        // Function to update the cart count on the button
+        function updateCartCount(count) {
+            document.getElementById('cartCount').innerText = count;
+        }
+
+        // Function to update the cart items in the modal
+        function updateCartItems() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsList = document.getElementById('cartItems');
+            cartItemsList.innerHTML = '';
+
+            cart.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${item.productName} - $${item.productPrice}`;
+                
+                // Add Remove button to each item
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.className = 'remove-button';
+                removeButton.onclick = () => removeFromCart(index);
+                li.appendChild(removeButton);
+                
+                cartItemsList.appendChild(li);
+            });
+        }
+
+        // Function to add items to the cart
+        function addToCart(productName, productPrice) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Add the new product to the cart array
+            cart.push({ productName, productPrice });
+
+            // Save the cart back to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Update the cart count
+            updateCartCount(cart.length);
+            updateCartItems();
+            alert(`${productName} has been added to your cart!`);
+        }
+
+        // Function to remove items from the cart
+        function removeFromCart(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Remove the item at the specified index
+            cart.splice(index, 1);
+
+            // Save the updated cart back to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Update the cart count
+            updateCartCount(cart.length);
+            updateCartItems();
+        }
+
+        // Function to toggle the visibility of the cart modal
+        function toggleCart() {
+            const cartModal = document.getElementById('cartModal');
+            cartModal.style.display = (cartModal.style.display === 'block') ? 'none' : 'block';
+        }
+
+        // Function to close the cart modal
+        function closeCart() {
+            const cartModal = document.getElementById('cartModal');
+            cartModal.style.display = 'none';
+        }
+
+        // Function for checkout (pass the cart data to checkout.html)
+        function checkout() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            localStorage.setItem('cart', JSON.stringify(cart));  // Ensure cart is saved for checkout
+            window.location.href = "checkout.html";  // Redirect to checkout page
+        }
+
+        // Initialize cart on page load
+        window.onload = function() {
+            initializeCart();
+        };
+    </script>
+</body>
+</html>

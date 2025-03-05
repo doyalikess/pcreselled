@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reselled Rigs - Custom PCs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Baloo 2', cursive;
+            background: #121212;
+            color: #fff;
+            text-align: center;
+        }
+
+        /* Free Shipping Banner */
+        .shipping-banner {
+            background-color: #ff4d00;
+            color: white;
+            padding: 1rem 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .shipping-banner p {
+            margin: 0;
+        }
+
+        header {
+            background: #1f1f1f;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 2rem;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-button {
+            position: absolute;
+            right: 2rem;
+            top: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .main-tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .main-tab {
+            padding: 1rem 2rem;
+            background: none;
+            margin: 0 1rem;
+            cursor: pointer;
+            border: 2px solid #ff4d00;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .main-tab:hover, .main-tab.active {
+            background: #ff4d00;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .home {
+            padding: 4rem 2rem;
+            animation: fadeIn 1s ease-in-out;
+            margin-top: 6rem; /* Adding space to avoid overlapping with the banner */
+        }
+
+        .home h1 {
+            font-size: 3rem;
+            color: #ff4d00;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .home p {
+            margin-top: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .explore-btn {
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: #ff4d00;
+            color: white;
+            font-size: 1.3rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .explore-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .home-features {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        .feature-card {
+            width: 250px;
+            padding: 1.5rem;
+            background: #282828;
+            border-radius: 20px;
+            color: #fff;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-card h3 {
+            color: #ff4d00;
+            font-size: 1.8rem;
+        }
+
+        .feature-card p {
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            margin-top: 6rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding: 0 2rem;
+        }
+
+        .review-card {
+            width: 300px;
+            padding: 2rem;
+            background: #282828;
+            border-radius: 20px;
+            text-align: center;
+            color: #fff;
+            transition: transform 0.2s ease-in-out;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .review-card:hover {
+            transform: scale(1.05);
+        }
+
+        .review-card .reviewer-name {
+            font-size: 1.4rem;
+            color: #ff4d00;
+            margin-top: 1rem;
+        }
+
+        .review-card .review-text {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            color: #ccc;
+        }
+
+        /* About Us Section */
+        .about-us {
+            background: #1f1f1f;
+            padding: 3rem 2rem;
+            color: #fff;
+            margin-top: 6rem;
+            border-radius: 20px;
+        }
+
+        .about-us h2 {
+            font-size: 2.5rem;
+            color: #ff4d00;
+            margin-bottom: 1rem;
+        }
+
+        .about-us p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            color: #ccc;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Free Shipping Banner -->
+    <div class="shipping-banner">
+        <p>Free Shipping for 24 Hours! 🚚 Don't miss out!</p>
+    </div>
+
+    <header>
+        Reselled Rigs 🔥
+        <button class="cart-button" onclick="toggleCart()">
+            <i class="fas fa-shopping-cart"></i> (<span id="cartCount">0</span>)
+        </button>
+    </header>
+
+    <div class="main-tabs">
+        <a href="index.html" class="main-tab active">Home</a>
+        <a href="store.html" class="main-tab">Store</a>
+    </div>
+
+    <div class="home">
+        <h1>Welcome to Reselled Rigs</h1>
+        <p>Looking for affordable, high-quality reused PCs? You've come to the right place! Get powerful pre-built rigs without breaking the bank!</p>
+        <button class="explore-btn" onclick="window.location.href='store.html'">Explore Our Collection</button>
+
+        <div class="home-features">
+            <div class="feature-card">
+                <h3>Budget-Friendly</h3>
+                <p>Get high-quality performance at a fraction of the price. Save money without compromising on quality!</p>
+            </div>
+            <div class="feature-card">
+                <h3>Fully Refurbished</h3>
+                <p>All of our rigs are thoroughly tested and refurbished to perform like new.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Fast Shipping</h3>
+                <p>We ensure prompt delivery so you can start gaming, working, or streaming without delay.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Us Section -->
+    <div class="about-us">
+        <h2>About Us</h2>
+        <p>At Reselled Rigs, we specialize in providing powerful pre-owned PCs at affordable prices. Our mission is to make high-performance computing accessible to everyone, whether you're a gamer, a professional, or someone in need of a reliable machine. We carefully refurbish each rig to ensure it performs like new, and we stand behind the quality of our products with a satisfaction guarantee.</p>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="reviews">
+        <div class="review-card">
+            <p class="review-text">"got this sent out and its amazinggg"</p>
+            <p class="reviewer-name">AfricanJeff.</p>
+        </div>
+
+        <div class="review-card">
+            <p class="review-text">"I was skeptical about buying a reused PC, but I'm so glad I did"</p>
+            <p class="reviewer-name">M***</p>
+        </div>
+
+        <div class="review-card">
+            <p class="review-text">"Fast delivery and great customer service. Will definitely recommend to others!"</p>
+            <p class="reviewer-name">L*****</p>
+        </div>
+    </div>
+</body>
+</html>
