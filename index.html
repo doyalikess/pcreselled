@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reselled Rigs - Custom PCs</title>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+    <title>Reselled Rigs - Premium Refurbished PCs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* General Reset */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -14,98 +15,145 @@
         }
 
         body {
-            font-family: 'Baloo 2', cursive;
-            background: #121212;
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
             color: #fff;
-            text-align: center;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Free Shipping Banner */
-        .shipping-banner {
-            background-color: #ff4d00;
-            color: white;
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            font-weight: bold;
-            position: sticky;
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
             top: 0;
-            z-index: 1000;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
         }
 
-        .shipping-banner p {
-            margin: 0;
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid #ff4d00;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
         }
 
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Main Content */
+        #content {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* Shipping Banner */
+        .shipping-banner {
+            background: linear-gradient(90deg, #ff4d00, #ff8c00);
+            color: white;
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Header */
         header {
-            background: #1f1f1f;
+            background: #1a1a1a;
             padding: 1rem 2rem;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
 
         header h1 {
             font-size: 1.8rem;
+            font-weight: 700;
             color: #ff4d00;
-            font-weight: bold;
+            text-align: center;
         }
 
         .cart-button {
-            background: none;
-            border: none;
+            background: #ff4d00;
             color: white;
-            font-size: 1.5rem;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 1rem;
             cursor: pointer;
+            transition: background 0.3s ease;
+            position: absolute;
+            right: 2rem;
         }
 
+        .cart-button:hover {
+            background: #ff8c00;
+        }
+
+        /* Main Tabs */
         .main-tabs {
             display: flex;
             justify-content: center;
-            margin-top: 1rem;
             gap: 1rem;
-            padding: 1rem 0;
-            background: #1f1f1f;
+            padding: 1.5rem 0;
+            background: #1a1a1a;
+            border-bottom: 1px solid #333;
         }
 
         .main-tab {
             padding: 0.8rem 1.5rem;
-            background: none;
+            background: transparent;
             border: 2px solid #ff4d00;
-            border-radius: 50px;
-            font-weight: bold;
+            border-radius: 8px;
             color: white;
+            font-weight: 500;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease;
         }
 
         .main-tab:hover, .main-tab.active {
             background: #ff4d00;
             color: #fff;
-            transform: scale(1.1);
+            transform: translateY(-2px);
         }
 
+        /* Home Section */
         .home {
             padding: 4rem 2rem;
-            margin-top: 3rem;
+            text-align: center;
         }
 
         .home h1 {
             font-size: 2.5rem;
+            font-weight: 700;
             color: #ff4d00;
             margin-bottom: 1rem;
         }
 
         .home p {
-            margin-top: 1rem;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #ccc;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .explore-btn {
@@ -113,109 +161,106 @@
             padding: 1rem 2rem;
             background: #ff4d00;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1rem;
+            font-weight: 500;
             border: none;
-            border-radius: 20px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: transform 0.2s ease-in-out;
+            transition: transform 0.3s ease, background 0.3s ease;
         }
 
         .explore-btn:hover {
-            transform: scale(1.1);
+            background: #ff8c00;
+            transform: translateY(-2px);
         }
 
-        .home-features {
-            margin-top: 3rem;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 2rem;
+        /* Featured Products Section */
+        .featured-products {
+            margin-top: 4rem;
+            padding: 2rem;
+            background: #1a1a1a;
+            border-radius: 12px;
+            text-align: center;
         }
 
-        .feature-card {
-            width: 260px;
-            padding: 1.5rem;
-            background: #282828;
-            border-radius: 20px;
-            transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .feature-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
+        .featured-products h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
             color: #ff4d00;
+            margin-bottom: 2rem;
         }
 
-        .feature-card p {
-            margin-top: 0.5rem;
-            font-size: 1rem;
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+        }
+
+        .product-card {
+            background: #282828;
+            padding: 1.5rem;
+            border-radius: 12px;
+            width: 100%;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-card img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .product-card h3 {
+            font-size: 1.2rem;
+            color: #ff4d00;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-card p {
+            font-size: 0.95rem;
             color: #ccc;
         }
 
-        .about-us {
-            background: #1f1f1f;
-            padding: 3rem 2rem;
+        .product-card .price {
+            font-size: 1.1rem;
+            font-weight: 600;
             color: #fff;
+            margin-top: 1rem;
+        }
+
+        /* About Us Section */
+        .about-us {
             margin-top: 4rem;
-            border-radius: 20px;
+            padding: 2rem;
             text-align: center;
         }
 
         .about-us h2 {
-            font-size: 2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
             color: #ff4d00;
             margin-bottom: 1rem;
         }
 
         .about-us p {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #ccc;
-            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .reviews {
-            margin-top: 4rem;
-            padding: 0 2rem;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .review-card {
-            width: 280px;
-            padding: 1.5rem;
-            background: #282828;
-            border-radius: 20px;
-            text-align: center;
-            transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .review-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .reviewer-name {
-            font-size: 1.2rem;
-            color: #ff4d00;
-            margin-top: 1rem;
-        }
-
-        .review-text {
-            font-size: 1rem;
-            color: #ccc;
-            margin-top: 0.5rem;
-        }
-
+        /* Footer */
         footer {
             margin-top: 4rem;
-            background: #1f1f1f;
-            padding: 1.5rem;
+            background: #1a1a1a;
+            padding: 2rem;
             text-align: center;
             color: #ccc;
         }
@@ -223,128 +268,147 @@
         footer a {
             color: #ff4d00;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
 
         footer a:hover {
-            text-decoration: underline;
+            color: #ff8c00;
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .cart-button {
+                right: 1rem;
+                padding: 0.5rem;
+            }
+
+            .main-tab {
+                padding: 0.6rem 1rem;
+            }
+
             .home h1 {
                 font-size: 2rem;
             }
 
-            .feature-card {
-                width: 90%;
+            .featured-products h2 {
+                font-size: 1.5rem;
             }
 
-            .review-card {
-                width: 90%;
-            }
-
-            .main-tab {
-                padding: 0.6rem 1.2rem;
+            .product-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="shipping-banner">
-        <p>🚚 Free Shipping for 24 Hours! Don’t miss out!</p>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-spinner"></div>
     </div>
 
-    <header>
-        <h1>Reselled Rigs 🔥</h1>
-        <button class="cart-button" onclick="toggleCart()">
-            <i class="fas fa-shopping-cart"></i> (<span id="cartCount">0</span>)
-        </button>
-    </header>
-
-    <div class="main-tabs">
-        <a href="index.html" class="main-tab active">Home</a>
-		<a href="store.html" class="main-tab">PC's</a>
-		<a href="GPU.html" class="main-tab">GPU's</a>
-        <a href="tracking.html" class="main-tab">tracking</a>
-		<a href="faq.html" class="main-tab">FAQ</a>
-    </div>
-
-    <div class="home">
-        <h1>Welcome to Reselled Rigs</h1>
-        <p>Affordable, high-quality reused PCs. Perfect for gaming, work, or streaming!</p>
-        <button class="explore-btn" onclick="window.location.href='store.html'">Explore Our Collection</button>
-
-        <div class="home-features">
-            <div class="feature-card">
-                <h3>Budget-Friendly</h3>
-                <p>Save money without compromising on quality!</p>
-            </div>
-            <div class="feature-card">
-                <h3>Fully Refurbished</h3>
-                <p>Every PC is tested and performs like new.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Fast Shipping</h3>
-                <p>Shipping takes anywhere from 7-30 days</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="about-us">
-        <h2>About Us</h2>
-        <p>We provide pre-owned PCs with high performance at affordable prices. Each PC is refurbished with care to ensure top-notch quality and customer satisfaction.</p>
-    </div>
-
-    <div class="reviews">
-        <div class="review-card">
-            <p class="review-text">"Amazing performance from theee budget pc"</p>
-            <p class="reviewer-name">AfricanJeff</p>
+    <!-- Main Content -->
+    <div id="content">
+        <!-- Shipping Banner -->
+        <div class="shipping-banner">
+            <p>🚚 Free Shipping for 24 Hours! Don’t miss out!</p>
         </div>
 
-        <div class="review-card">
-            <p class="review-text">"Skeptical at first, and took like 11 days but it was worth it"</p>
-            <p class="reviewer-name">S*****</p>
+        <!-- Header -->
+        <header>
+            <h1>Reselled Rigs</h1>
+            <button class="cart-button" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i> (<span id="cartCount">0</span>)
+            </button>
+        </header>
+
+        <!-- Main Tabs -->
+        <div class="main-tabs">
+            <a href="index.html" class="main-tab active">Home</a>
+            <a href="store.html" class="main-tab">PC's</a>
+            <a href="GPU.html" class="main-tab">GPU's</a>
+            <a href="tracking.html" class="main-tab">Tracking</a>
+            <a href="faq.html" class="main-tab">FAQ</a>
         </div>
-    </div>
 
-    <footer>
-        <p>Contact us at: <a href="mailto:contact@reselledrigs.com">contact@reselledrigs.com</a></p>
-        <p>&copy; 2025 Reselled Rigs</p>
-    </footer>
+        <!-- Home Section -->
+        <div class="home">
+            <h1>Welcome to Reselled Rigs</h1>
+            <p>Affordable, high-quality refurbished PCs. Perfect for gaming, work, or streaming!</p>
+            <button class="explore-btn" onclick="window.location.href='store.html'">Explore Our Collection</button>
 
-    <!-- Cart Modal -->
-    <div id="cartModal" style="display: none;">
-        <div id="cartItems"></div>
-        <button onclick="closeCart()">Close</button>
+            <!-- Featured Products -->
+            <div class="featured-products">
+                <h2>Featured Products</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/250" alt="Product 1">
+                        <h3>Gaming PC - RTX 3060</h3>
+                        <p>High-performance gaming PC with RTX 3060 and Ryzen 5 5600X.</p>
+                        <p class="price">$899.99</p>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/250" alt="Product 2">
+                        <h3>Streaming PC - RTX 3070</h3>
+                        <p>Perfect for streaming and gaming with RTX 3070 and Ryzen 7 5800X.</p>
+                        <p class="price">$1199.99</p>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/250" alt="Product 3">
+                        <h3>Workstation PC - RTX 3080</h3>
+                        <p>Powerful workstation for creators and professionals.</p>
+                        <p class="price">$1499.99</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Us Section -->
+        <div class="about-us">
+            <h2>About Us</h2>
+            <p>We specialize in providing high-performance, pre-owned PCs at affordable prices. Each system is meticulously refurbished to ensure top-notch quality and customer satisfaction.</p>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Contact us at: <a href="mailto:contact@reselledrigs.com">contact@reselledrigs.com</a></p>
+            <p>&copy; 2025 Reselled Rigs. All rights reserved.</p>
+        </footer>
     </div>
 
     <script>
-        // Initialize the cart when the page loads
+        // Show content after 3 seconds and hide loading screen
+        setTimeout(function() {
+            document.getElementById('loading-screen').style.opacity = '0';
+            document.getElementById('content').style.display = 'block';
+            document.getElementById('content').style.opacity = '1';
+
+            setTimeout(function() {
+                document.getElementById('loading-screen').style.display = 'none';
+            }, 1000);
+        }, 3000);
+
+        // Initialize cart
         window.onload = function() {
             initializeCart();
         };
 
-        // Function to initialize the cart from localStorage
         function initializeCart() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             updateCartCount(cart.length);
         }
 
-        // Function to update the cart count on the button
         function updateCartCount(count) {
             document.getElementById('cartCount').innerText = count;
         }
 
-        // Toggle the cart modal
         function toggleCart() {
             const modal = document.getElementById('cartModal');
-            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
-        }
-
-        // Close the cart modal
-        function closeCart() {
-            const modal = document.getElementById('cartModal');
-            modal.style.display = 'none';
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
         }
     </script>
 </body>
