@@ -127,6 +127,13 @@
             font-weight: bold;
         }
 
+        .quantity {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            color: #ff4d00;
+            font-weight: bold;
+        }
+
         /* Cart Modal */
         .cart-modal {
             display: none;
@@ -247,39 +254,42 @@
     <div class="main-tabs">
         <a href="index.html" class="main-tab">Home</a>
         <a href="store.html" class="main-tab active">PC's</a>
-		<a href="GPU.html" class="main-tab">GPU's</a>
-		<a href="tracking.html" class="main-tab">tracking</a>
-		<a href="faq.html" class="main-tab">FAQ</a>
+        <a href="GPU.html" class="main-tab">GPU's</a>
+        <a href="tracking.html" class="main-tab">tracking</a>
+        <a href="faq.html" class="main-tab">FAQ</a>
     </div>
 
     <div class="products">
         <!-- Product 1 -->
-        <div class="product-card" onclick="addToCart('Angel Pro', 299)">
+        <div class="product-card" id="product-1" onclick="addToCart('Angel Pro', 299)">
             <img src="https://media.discordapp.net/attachments/1296183657417146430/1346860046860156948/IMG_2195.jpg?ex=67c9b8aa&is=67c8672a&hm=860c67d86b9a659ee4c84def3d2d1d7aa6b70f02a734fd57d98375a8c0967403&=&format=webp&width=369&height=657" alt="Angel Pro">
             <div class="product-info">
                 <h3 class="product-title">Angel Pro</h3>
                 <p class="product-description">AMD RYZEN 7 7700 | RTX 4060 OC | 16GB DDR5 | 1TB NVMe SSD</p>
                 <div class="product-price">$299</div>
+                <div class="quantity">Quantity: 1</div>
             </div>
         </div>
 
         <!-- Product 2 -->
-        <div class="product-card" onclick="addToCart('Performance Pro', 599)">
+        <div class="product-card" id="product-2" onclick="addToCart('Performance Pro', 599)">
             <img src="https://media.discordapp.net/attachments/1341421737098743828/1346864203667079168/first-pc-build-white-blue-theme-v0-dj4587txnume1.png?ex=67c9bc89&is=67c86b09&hm=6e3f1f45cd0d16b20e73b8db474f03a4e931e3c51be6ab1abe1f8abca0a2e324&=&format=webp&quality=lossless&width=369&height=657" alt="Performance Pro">
             <div class="product-info">
                 <h3 class="product-title">Performance Pro</h3>
                 <p class="product-description">AMD Ryzen 7 9800X3D | RTX 4090 | 32GB RAM | 2TB SSD</p>
                 <div class="product-price">$599</div>
+                <div class="quantity">Quantity: 1</div>
             </div>
         </div>
 
         <!-- Product 3 -->
-        <div class="product-card" onclick="addToCart('Budget Beast', 80)">
+        <div class="product-card" id="product-3" onclick="addToCart('Budget Beast', 80)">
             <img src="https://media.discordapp.net/attachments/1341421737098743828/1346864909761253478/nc3j1mypled71.png?ex=67c9bd32&is=67c86bb2&hm=6337faa8119021a19c782f4aa3f3f10bdd69c2ad89284e753f5ed991841c9cd3&=&format=webp&quality=lossless&width=493&height=657" alt="Budget Beast">
             <div class="product-info">
                 <h3 class="product-title">Budget Beast</h3>
                 <p class="product-description">AMD Ryzen 5 4500 | RTX 3070 TI| 16GB RAM DDR4 | 1TB SSD</p>
                 <div class="product-price">$80</div>
+                <div class="quantity">Quantity: 1</div>
             </div>
         </div>
     </div>
@@ -317,15 +327,15 @@
 
             cart.forEach((item, index) => {
                 const li = document.createElement('li');
-                li.textContent = `${item.productName} - $${item.productPrice}`;
-                
+                li.textContent = `${item.productName} - $${item.productPrice} (Quantity: 1)`;  // Fixed quantity
+
                 // Add Remove button to each item
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'Remove';
                 removeButton.className = 'remove-button';
                 removeButton.onclick = () => removeFromCart(index);
                 li.appendChild(removeButton);
-                
+
                 cartItemsList.appendChild(li);
             });
         }
@@ -334,8 +344,14 @@
         function addToCart(productName, productPrice) {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-            // Add the new product to the cart array
-            cart.push({ productName, productPrice });
+            // Check if the product is already in the cart
+            const existingProduct = cart.find(item => item.productName === productName);
+
+            // If the product is already in the cart, do nothing
+            if (!existingProduct) {
+                // Otherwise, add a new product to the cart
+                cart.push({ productName, productPrice });
+            }
 
             // Save the cart back to localStorage
             localStorage.setItem('cart', JSON.stringify(cart));
