@@ -411,7 +411,7 @@
 
         function calculateTotalWithShipping() {
             const totalPrice = parseFloat(document.getElementById('totalPrice').innerText);
-            const shippingCost = 0; 
+            const shippingCost = 23.99; 
             const totalAmount = totalPrice + shippingCost;
             document.getElementById('shippingCost').innerText = `$${shippingCost}`;
             document.getElementById('totalPrice').innerText = totalAmount;
@@ -421,7 +421,7 @@
             showLoading();
             setTimeout(function () {
                 hideLoading();
-                alert('Payment via is broken, just discord to pay with paypal!');
+                alert('Payment via Paypal is broken, just discord to pay with paypal for now');
             }, 2000);
         }
 
